@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Enums\AppEnvironmentEnum;
+use App\Models\ShopCategory;
 use App\Models\User;
 use App\Traits\Renderable;
 use Illuminate\Console\Command;
@@ -25,7 +26,8 @@ class DevelopmentData extends Command
             return CommandAlias::FAILURE;
         }
 
-        $this->createUsers();
+//        $this->createShopCategories();
+//        $this->createUsers();
         return CommandAlias::SUCCESS;
     }
 
@@ -47,5 +49,14 @@ class DevelopmentData extends Command
         User::factory()->count(10)->create();
 
         $this->renderSuccess("Creating users", "[ OK ]");
+    }
+
+    private function createShopCategories(): void
+    {
+        $this->renderInfo("Creating shop categories", "[ IN PROGRESS ]");
+
+        ShopCategory::factory()->count(20)->create();
+
+        $this->renderSuccess("Creating shop categories", "[ OK ]");
     }
 }

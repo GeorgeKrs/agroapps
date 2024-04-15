@@ -19,4 +19,21 @@ class Shop extends Model
         return LogOptions::defaults()
             ->logOnly(['*']);
     }
+
+    /*
+     *
+     *
+     * Relationships
+     *
+     *
+     */
+
+
+    /*
+     *
+     *
+     * Query Scopes
+     *
+     *
+     */
 }
