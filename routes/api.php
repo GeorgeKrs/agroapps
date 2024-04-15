@@ -7,3 +7,14 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+
+/**
+ * Auth Routes
+ */
+Route::middleware('auth:sanctum')->group(function () {
+
+});
+
+/**
+ * Guest Routes
+ */
