@@ -3,9 +3,12 @@
 namespace App\Console\Commands;
 
 use App\Enums\AppEnvironmentEnum;
+use App\Models\Shop;
 use App\Models\ShopCategory;
+use App\Models\ShopOffer;
 use App\Models\User;
 use App\Traits\Renderable;
+use Database\Factories\ShopFactory;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\App;
 use Symfony\Component\Console\Command\Command as CommandAlias;
@@ -26,6 +29,9 @@ class DevelopmentData extends Command
             return CommandAlias::FAILURE;
         }
 
+//        TODO: Build Development Command
+//        ShopOffer::factory()->create();
+//        Shop::factory()->create();
 //        $this->createShopCategories();
 //        $this->createUsers();
         return CommandAlias::SUCCESS;

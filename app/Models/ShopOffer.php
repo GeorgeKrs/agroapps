@@ -10,7 +10,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class ShopOffer extends Model
 {
-    use LogsActivity, SoftDeletes;
+    use LogsActivity, SoftDeletes, HasFactory;
 
     protected $guarded = [];
     protected $table = 'shop_offers';
