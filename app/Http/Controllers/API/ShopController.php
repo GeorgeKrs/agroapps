@@ -9,15 +9,29 @@ use App\Http\Requests\API\Shop\ShopUpdateRequest;
 use App\Models\Shop;
 use App\Repositories\ShopRepository;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ShopController extends Controller
 {
+    public function index(Request $request): JsonResponse
+    {
+        Log::debug($request->ownerIds);
+
+        return ApiResponseData::success(
+            message: "Available Shops",
+            data: Shop::query()
+                ->filter()
+                ->get()
+        );
+    }
+
     public function store(ShopStoreRequest $request): JsonResponse
     {
         $shop = ShopRepository::store($request->safe()->toArray());
 
         return ApiResponseData::success(
-            message: 'Shop created successfully!',
+            message: "Shop created successfully!",
             data: $shop
         );
     }
@@ -26,9 +40,13 @@ class ShopController extends Controller
     {
         $shop->repository()->update($request->safe()->toArray());
 
-        return ApiResponseData::success(
-            message: 'Shop updated successfully!',
-            data: []
-        );
+        return ApiResponseData::success(message: "Shop updated successfully!");
+    }
+
+    public function delete(Shop $shop): JsonResponse
+    {
+        $shop->repository()->delete();
+
+        return ApiResponseData::success(message: "Shop deleted!");
     }
 }

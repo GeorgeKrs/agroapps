@@ -19,7 +19,7 @@ class AuthController extends Controller
         $token = $user->repository()->generateToken();
 
         return ApiResponseData::success(
-            message: 'Registration Complete',
+            message: 'Registration Complete!',
             data: [
                 "token" => $token->plainTextToken,
                 "status" => 201
@@ -35,7 +35,7 @@ class AuthController extends Controller
             $token = $user->repository()->generateToken();
 
             return ApiResponseData::success(
-                message: 'Shop created successfully!',
+                message: 'Login successfully!',
                 data: [
                     "token" => $token->plainTextToken,
                     "status" => 201,

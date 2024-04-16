@@ -19,4 +19,9 @@ class ShopRepository
     {
         return $this->shop->update($payload);
     }
+
+    public function delete(): ?bool
+    {
+        return $this->shop->delete();
+    }
 }
