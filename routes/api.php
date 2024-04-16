@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ShopController;
 use App\Http\Controllers\API\ShopOfferController;
 use Illuminate\Auth\Middleware\Authenticate;
@@ -10,35 +11,35 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware(Authenticate::using('sanctum'));
 
-
 /**
  * Auth Routes
  */
 Route::middleware(Authenticate::using('sanctum'))->group(function () {
-//▪ Shop owner registration => Laravel
-//▪ Shop owner login => Laravel
-//▪ Shop creation
-//▪ Shop edit
-//▪ Creating an offer for a shop by shop owner
+    Route::controller(ShopController::class)
+        ->name("shops.")
+        ->prefix("shops")
+        ->group(function () {
+            Route::post('store', 'store')->name('store');
+            Route::put('{shop}/update', 'update')->name('update');
+        });
 
+    Route::controller(ShopOfferController::class)
+        ->name("shop-offers.")
+        ->prefix("shop-offers")
+        ->group(function () {
+            Route::post('store', 'store')->name('store');
+        });
 });
 
 /**
  * Guest Routes
  */
-
-Route::controller(ShopController::class)
-    ->name("shops.")
-    ->prefix("shops")
+Route::controller(AuthController::class)
+    ->name("auth.")
+    ->prefix("auth")
     ->group(function () {
-        Route::post('store', 'store')->name('store');
-        Route::put('{shop}/update', 'update')->name('update');
+        Route::post('register', 'register')->name('register');
+        Route::post('login', 'login')->name('login');
     });
 
-Route::controller(ShopOfferController::class)
-    ->name("shop-offers.")
-    ->prefix("shop-offers")
-    ->group(function () {
-        Route::post('store', 'store')->name('store');
-    });
 
