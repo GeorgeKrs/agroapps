@@ -1,17 +1,19 @@
 <?php
 
+use App\Http\Controllers\API\ShopController;
+use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
-})->middleware('auth:sanctum');
+})->middleware(Authenticate::using('sanctum'));
 
 
 /**
  * Auth Routes
  */
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(Authenticate::using('sanctum'))->group(function () {
 //▪ Shop owner registration => Laravel
 //▪ Shop owner login => Laravel
 //▪ Shop creation
@@ -23,3 +25,10 @@ Route::middleware('auth:sanctum')->group(function () {
 /**
  * Guest Routes
  */
+
+Route::controller(ShopController::class)
+    ->name("shops.")
+    ->group(function () {
+        Route::post('shops/store', 'store')->name('store');
+        Route::put('shops/{shop}/update', 'update')->name('update');
+    });
