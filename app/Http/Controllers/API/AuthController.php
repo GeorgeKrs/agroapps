@@ -38,7 +38,7 @@ class AuthController extends Controller
                 message: 'Shop created successfully!',
                 data: [
                     "token" => $token->plainTextToken,
-                    "status" => 201
+                    "status" => 201,
                 ]
             );
         }
