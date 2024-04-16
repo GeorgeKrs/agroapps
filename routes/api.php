@@ -12,6 +12,11 @@ Route::get('/user', function (Request $request) {
  * Auth Routes
  */
 Route::middleware('auth:sanctum')->group(function () {
+//▪ Shop owner registration => Laravel
+//▪ Shop owner login => Laravel
+//▪ Shop creation
+//▪ Shop edit
+//▪ Creating an offer for a shop by shop owner
 
 });
 
