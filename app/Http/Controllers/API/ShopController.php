@@ -4,20 +4,17 @@ namespace App\Http\Controllers\API;
 
 use App\Data\ApiResponseData;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\Shop\ShopIndexRequest;
 use App\Http\Requests\API\Shop\ShopStoreRequest;
 use App\Http\Requests\API\Shop\ShopUpdateRequest;
 use App\Models\Shop;
 use App\Repositories\ShopRepository;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class ShopController extends Controller
 {
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
-        Log::debug($request->ownerIds);
-
         return ApiResponseData::success(
             message: "Available Shops",
             data: Shop::query()

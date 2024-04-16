@@ -70,10 +70,10 @@ class Shop extends Model
     public function scopeFilter(Builder $builder): Builder
     {
         return $builder
-            ->when(request("ownerIds") ?? null, function ($builder, $ownerIds) {
+            ->when(request("owner_ids") ?? null, function ($builder, $ownerIds) {
                 $builder->ownersFilter($ownerIds);
             })
-            ->when(request("categoryIds") ?? null, function ($builder, $categoryIds) {
+            ->when(request("category_ids") ?? null, function ($builder, $categoryIds) {
                 $builder->categoriesFilter($categoryIds);
             })
             ->when(request("term") ?? null, function ($builder, $term) {
@@ -81,12 +81,12 @@ class Shop extends Model
             });
     }
 
-    public function scopeOwnersFilter(Builder $builder, array $ownerIds = []): Builder
+    public function scopeOwnersFilter(Builder $builder, ?array $ownerIds = []): Builder
     {
         return $builder->whereIn("owner_id", $ownerIds);
     }
 
-    public function scopeCategoriesFilter(Builder $builder, array $categoryIds = []): Builder
+    public function scopeCategoriesFilter(Builder $builder, ?array $categoryIds = []): Builder
     {
         return $builder->whereIn("category_id", $categoryIds);
     }
