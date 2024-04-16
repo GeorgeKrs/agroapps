@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\ShopController;
+use App\Http\Controllers\API\ShopOfferController;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,7 +29,16 @@ Route::middleware(Authenticate::using('sanctum'))->group(function () {
 
 Route::controller(ShopController::class)
     ->name("shops.")
+    ->prefix("shops")
     ->group(function () {
-        Route::post('shops/store', 'store')->name('store');
-        Route::put('shops/{shop}/update', 'update')->name('update');
+        Route::post('store', 'store')->name('store');
+        Route::put('{shop}/update', 'update')->name('update');
     });
+
+Route::controller(ShopOfferController::class)
+    ->name("shop-offers.")
+    ->prefix("shop-offers")
+    ->group(function () {
+        Route::post('store', 'store')->name('store');
+    });
+

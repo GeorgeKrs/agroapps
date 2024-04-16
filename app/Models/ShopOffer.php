@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Observers\ShopOfferObserver;
+use App\Repositories\ShopOfferRepository;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,6 +24,11 @@ class ShopOffer extends Model
     {
         return LogOptions::defaults()
             ->logOnly(['*']);
+    }
+
+    public function repository(): ShopOfferRepository
+    {
+        return new ShopOfferRepository($this);
     }
 
     /*

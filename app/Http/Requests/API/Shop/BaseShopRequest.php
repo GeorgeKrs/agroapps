@@ -1,30 +1,12 @@
 <?php
 
-namespace App\Http\Requests\API;
+namespace App\Http\Requests\API\Shop;
 
-use App\Models\ShopCategory;
-use App\Models\User;
-use App\Rules\AllDaysOfWeekExistsRule;
-use App\Rules\UniqueOrderValuesRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShopRequest extends FormRequest
+abstract class BaseShopRequest extends FormRequest
 {
-    public function rules(): array
-    {
-        return [
-            "name" => 'required|string|max:60',
-            "description" => 'required|string|max:500',
-            "owner_id" => 'required|exists:' . User::class . ',id',
-            "category_id" => 'required|exists:' . ShopCategory::class . ',id',
-            "city" => 'required|string|max:60',
-            "address" => 'nullable|string|max:60',
-            "open_hours" => ['required', 'array', new AllDaysOfWeekExistsRule, new UniqueOrderValuesRule],
-            "open_hours.*.opening_time" => 'required|date_format:H:i:s',
-            "open_hours.*.closing_time" => 'required|date_format:H:i:s',
-            "open_hours.*.order" => 'required|integer|min:1|max:14',
-        ];
-    }
+    public abstract function rules(): array;
 
     public function messages(): array
     {
@@ -32,6 +14,9 @@ class ShopRequest extends FormRequest
             "name.required" => "Name is required",
             "name.string" => "Name must be of type string",
             "name.max" => "Name's max characters are 60",
+            "description.required" => "Description is required",
+            "description.string" => "Description must be of type string",
+            "description.max" => "Description's max characters are 500",
             "owner_id.required" => "Owner id is required",
             "owner_id.exists" => "The owner id provided does not exist",
             "category_id.required" => "The category id is required",
