@@ -13,12 +13,18 @@ use Illuminate\Http\JsonResponse;
 
 class ShopController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(ShopIndexRequest $request): JsonResponse
     {
+        $filters = $request->safe()->toArray();
+
         return ApiResponseData::success(
             message: "Available Shops",
             data: Shop::query()
-                ->filter()
+                ->filter(
+                    ownerIds: $filters["owner_ids"] ?? null,
+                    categoryIds: $filters["category_ids"] ?? null,
+                    term: $filters["term"] ?? null,
+                )
                 ->get()
         );
     }

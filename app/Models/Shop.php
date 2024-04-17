@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -67,16 +66,21 @@ class Shop extends Model
      *
      */
 
-    public function scopeFilter(Builder $builder): Builder
+    public function scopeFilter(
+        Builder $builder,
+        ?array  $ownerIds = null,
+        ?array  $categoryIds = null,
+        ?string $term = null,
+    ): Builder
     {
         return $builder
-            ->when(request("owner_ids") ?? null, function ($builder, $ownerIds) {
+            ->when($ownerIds ?? null, function ($builder, $ownerIds) {
                 $builder->ownersFilter($ownerIds);
             })
-            ->when(request("category_ids") ?? null, function ($builder, $categoryIds) {
+            ->when($categoryIds ?? null, function ($builder, $categoryIds) {
                 $builder->categoriesFilter($categoryIds);
             })
-            ->when(request("term") ?? null, function ($builder, $term) {
+            ->when($term ?? null, function ($builder, $term) {
                 $builder->citiesFilter($term);
             });
     }
