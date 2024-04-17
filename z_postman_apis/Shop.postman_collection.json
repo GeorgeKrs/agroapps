@@ -1,0 +1,165 @@
+{
+	"info": {
+		"_postman_id": "6525631e-bc56-4594-b6be-1dcd803513f1",
+		"name": "Shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17203854"
+	},
+	"item": [
+		{
+			"name": "Store",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"name\": \"Shop Name\",\n    \"category_id\": 1,\n    \"description\": \"Some Description\",\n    \"open_hours\": {\n        \"Monday\": {\n            \"opening_time\": \"09:00:00\",\n            \"closing_time\": \"18:00:00\",\n            \"order\": 1\n        },\n        \"Tuesday\": {\n            \"opening_time\": \"09:00:00\",\n            \"closing_time\": \"18:00:00\",\n            \"order\": 2\n        },\n        \"Wednesday\": {\n            \"opening_time\": \"09:00:00\",\n            \"closing_time\": \"18:00:00\",\n            \"order\": 3\n        },\n        \"Thursday\": {\n            \"opening_time\": \"09:00:00\",\n            \"closing_time\": \"18:00:00\",\n            \"order\": 4\n        },\n        \"Friday\": {\n            \"opening_time\": \"09:00:00\",\n            \"closing_time\": \"18:00:00\",\n            \"order\": 5\n        },\n        \"Saturday\": {\n            \"opening_time\": \"09:00:00\",\n            \"closing_time\": \"18:00:00\",\n            \"order\": 6\n        },\n        \"Sunday\": {\n            \"opening_time\": \"09:00:00\",\n            \"closing_time\": \"18:00:00\",\n            \"order\": 7\n        }\n    },\n    \"city\": \"Some City Value\",\n    \"address\": \"Some Address value\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{appUrl}}/shops/store",
+					"host": [
+						"{{appUrl}}"
+					],
+					"path": [
+						"shops",
+						"store"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"name\": \"My new shop name\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{appUrl}}/shops/28/update",
+					"host": [
+						"{{appUrl}}"
+					],
+					"path": [
+						"shops",
+						"28",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{appUrl}}/shops/26/delete",
+					"host": [
+						"{{appUrl}}"
+					],
+					"path": [
+						"shops",
+						"26",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Index",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"owner_ids\": [1]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{appUrl}}/guest/shops",
+					"host": [
+						"{{appUrl}}"
+					],
+					"path": [
+						"guest",
+						"shops"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

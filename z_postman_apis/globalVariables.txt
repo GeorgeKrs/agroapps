@@ -1,0 +1,2 @@
+appUrl=http://127.0.0.1:8000/api
+authToken=1|g3AhexY9sviQffmEtmt2Qi95NANuVzGF9qc6YueR62fde93a
