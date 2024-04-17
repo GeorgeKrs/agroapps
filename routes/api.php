@@ -27,7 +27,6 @@ Route::controller(ShopController::class)
         Route::get('', 'index')->name('index');
     });
 
-
 /**
  * Auth Routes
  */
