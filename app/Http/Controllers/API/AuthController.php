@@ -53,10 +53,12 @@ class AuthController extends Controller
                     ]
                 );
             }
+
+            return ApiResponseData::error(message: "These credentials do not match our records", statusCode: 401);
         } catch (Exception $exception) {
             $this->handleErrorException($exception);
-        }
 
-        return ApiResponseData::error();
+            return ApiResponseData::error();
+        }
     }
 }
