@@ -2,14 +2,23 @@
 
 namespace App\Policies;
 
+use App\Models\Shop;
 use App\Models\User;
-use Illuminate\Support\Facades\Log;
 
 class ShopPolicy
 {
-    public function viewAny(User $user): bool
+    public function store(User $user): bool
     {
-        Log::debug("viewAny");
         return true;
+    }
+
+    public function update(User $user, Shop $shop): bool
+    {
+        return $user->id === $shop->owner_id;
+    }
+
+    public function delete(User $user, Shop $shop): bool
+    {
+        return $user->id === $shop->owner_id;
     }
 }

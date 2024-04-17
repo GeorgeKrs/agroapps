@@ -35,7 +35,6 @@ Route::middleware(Authenticate::using('sanctum'))->group(function () {
         ->name("shops.")
         ->prefix("shops")
         ->group(function () {
-            Route::get('', 'index')->name('index');
             Route::post('store', 'store')->name('store');
             Route::put('{shop}/update', 'update')->name('update');
             Route::delete('{shop}/delete', 'delete')->name('delete');

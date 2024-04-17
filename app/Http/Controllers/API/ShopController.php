@@ -11,6 +11,7 @@ use App\Http\Requests\API\Shop\ShopUpdateRequest;
 use App\Models\Shop;
 use App\Repositories\ShopRepository;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
 class ShopController extends Controller
@@ -42,12 +43,17 @@ class ShopController extends Controller
     public function store(ShopStoreRequest $request): JsonResponse
     {
         try {
-            $shop = ShopRepository::store($request->safe()->toArray());
+            if (Gate::allows("store", Shop::class)) {
+                $shop = ShopRepository::store($request->safe()->toArray());
 
-            return ApiResponseData::success(
-                message: "Shop created successfully!",
-                data: ShopData::fromModel($shop)
-            );
+                return ApiResponseData::success(
+                    message: "Shop created successfully!",
+                    data: ShopData::fromModel($shop)
+                );
+            }
+
+            return ApiResponseData::unauthorized();
+
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             Log::error($exception->getLine());
@@ -60,10 +66,13 @@ class ShopController extends Controller
     public function update(ShopUpdateRequest $request, Shop $shop): JsonResponse
     {
         try {
-            $shop->repository()->update($request->safe()->toArray());
+            if (Gate::allows("update", $shop)) {
+                $shop->repository()->update($request->safe()->toArray());
 
-            return ApiResponseData::success(message: "Shop updated successfully!", data: ShopData::fromModel($shop));
+                return ApiResponseData::success(message: "Shop updated successfully!", data: ShopData::fromModel($shop));
+            }
 
+            return ApiResponseData::unauthorized();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             Log::error($exception->getLine());
@@ -76,10 +85,13 @@ class ShopController extends Controller
     public function delete(Shop $shop): JsonResponse
     {
         try {
-            $shop->repository()->delete();
+            if (Gate::allows("delete", $shop)) {
+                $shop->repository()->delete();
 
-            return ApiResponseData::success(message: "Shop deleted!");
+                return ApiResponseData::success(message: "Shop deleted!");
+            }
 
+            return ApiResponseData::unauthorized();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             Log::error($exception->getLine());
