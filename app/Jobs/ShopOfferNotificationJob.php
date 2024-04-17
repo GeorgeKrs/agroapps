@@ -30,6 +30,6 @@ class ShopOfferNotificationJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Log::info("Senting actual notification async");
+        Log::info("Sending actual notification asynchronously");
     }
 }

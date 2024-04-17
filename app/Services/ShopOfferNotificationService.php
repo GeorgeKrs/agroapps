@@ -15,7 +15,7 @@ class ShopOfferNotificationService
 
     public function notifyUserForShopOfferCreation(User $user): void
     {
-        Log::info("Despatching Async notification for user: $user->name");
+        Log::info("Despatching Async Job for user: $user->name");
 
         ShopOfferNotificationJob::dispatch($this->shopOffer, $user);
     }
