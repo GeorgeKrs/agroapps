@@ -4,15 +4,10 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ShopController;
 use App\Http\Controllers\API\ShopOfferController;
 use Illuminate\Auth\Middleware\Authenticate;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware(Authenticate::using('sanctum'));
-
 /**
- * Guest Routes
+ * Login & Registration Routes
  */
 Route::controller(AuthController::class)
     ->name("auth.")
@@ -21,6 +16,17 @@ Route::controller(AuthController::class)
         Route::post('register', 'register')->name('register');
         Route::post('login', 'login')->name('login');
     });
+
+/**
+ * Guest Routes
+ */
+Route::controller(ShopController::class)
+    ->name("guest.shops.")
+    ->prefix("guest/shops")
+    ->group(function () {
+        Route::get('', 'index')->name('index');
+    });
+
 
 /**
  * Auth Routes
