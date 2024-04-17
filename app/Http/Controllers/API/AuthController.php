@@ -7,12 +7,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Auth\LoginRequest;
 use App\Http\Requests\API\Auth\RegisterRequest;
 use App\Repositories\UserRepository;
+use App\Traits\Exceptionable;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
+    use Exceptionable;
+
     public function register(RegisterRequest $request): JsonResponse
     {
         try {
@@ -28,11 +31,8 @@ class AuthController extends Controller
                 ]
             );
 
-        } catch (\Exception $exception) {
-            Log::error($exception->getMessage());
-            Log::error($exception->getLine());
-            Log::error($exception->getTraceAsString());
-
+        } catch (Exception $exception) {
+            $this->handleErrorException($exception);
             return ApiResponseData::error();
         }
     }
@@ -53,10 +53,8 @@ class AuthController extends Controller
                     ]
                 );
             }
-        } catch (\Exception $exception) {
-            Log::error($exception->getMessage());
-            Log::error($exception->getLine());
-            Log::error($exception->getTraceAsString());
+        } catch (Exception $exception) {
+            $this->handleErrorException($exception);
         }
 
         return ApiResponseData::error();

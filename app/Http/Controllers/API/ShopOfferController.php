@@ -7,11 +7,14 @@ use App\Data\ShopOffer\ShopOfferData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\ShopOffer\ShopOfferStoreRequest;
 use App\Repositories\ShopOfferRepository;
+use App\Traits\Exceptionable;
+use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Log;
 
 class ShopOfferController extends Controller
 {
+    use Exceptionable;
+
     public function store(ShopOfferStoreRequest $request): JsonResponse
     {
         try {
@@ -22,11 +25,8 @@ class ShopOfferController extends Controller
                 data: ShopOfferData::fromModel($shopOffer)
             );
 
-        } catch (\Exception $exception) {
-            Log::error($exception->getMessage());
-            Log::error($exception->getLine());
-            Log::error($exception->getTraceAsString());
-
+        } catch (Exception $exception) {
+            $this->handleErrorException($exception);
             return ApiResponseData::error();
         }
     }

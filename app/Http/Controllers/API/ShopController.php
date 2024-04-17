@@ -10,12 +10,15 @@ use App\Http\Requests\API\Shop\ShopStoreRequest;
 use App\Http\Requests\API\Shop\ShopUpdateRequest;
 use App\Models\Shop;
 use App\Repositories\ShopRepository;
+use App\Traits\Exceptionable;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Log;
 
 class ShopController extends Controller
 {
+    use Exceptionable;
+
     public function index(ShopIndexRequest $request): JsonResponse
     {
         try {
@@ -31,11 +34,8 @@ class ShopController extends Controller
                     )->get()
                 )
             );
-        } catch (\Exception $exception) {
-            Log::error($exception->getMessage());
-            Log::error($exception->getLine());
-            Log::error($exception->getTraceAsString());
-
+        } catch (Exception $exception) {
+            $this->handleErrorException($exception);
             return ApiResponseData::error();
         }
     }
@@ -43,22 +43,19 @@ class ShopController extends Controller
     public function store(ShopStoreRequest $request): JsonResponse
     {
         try {
-            if (Gate::allows("store", Shop::class)) {
-                $shop = ShopRepository::store($request->safe()->toArray());
-
-                return ApiResponseData::success(
-                    message: "Shop created successfully!",
-                    data: ShopData::fromModel($shop)
-                );
+            if (!Gate::allows("store", Shop::class)) {
+                return ApiResponseData::unauthorized();
             }
 
-            return ApiResponseData::unauthorized();
+            $shop = ShopRepository::store($request->safe()->toArray());
 
-        } catch (\Exception $exception) {
-            Log::error($exception->getMessage());
-            Log::error($exception->getLine());
-            Log::error($exception->getTraceAsString());
+            return ApiResponseData::success(
+                message: "Shop created successfully!",
+                data: ShopData::fromModel($shop)
+            );
 
+        } catch (Exception $exception) {
+            $this->handleErrorException($exception);
             return ApiResponseData::error();
         }
     }
@@ -66,18 +63,15 @@ class ShopController extends Controller
     public function update(ShopUpdateRequest $request, Shop $shop): JsonResponse
     {
         try {
-            if (Gate::allows("update", $shop)) {
-                $shop->repository()->update($request->safe()->toArray());
-
-                return ApiResponseData::success(message: "Shop updated successfully!", data: ShopData::fromModel($shop));
+            if (!Gate::allows("update", $shop)) {
+                return ApiResponseData::unauthorized();
             }
 
-            return ApiResponseData::unauthorized();
-        } catch (\Exception $exception) {
-            Log::error($exception->getMessage());
-            Log::error($exception->getLine());
-            Log::error($exception->getTraceAsString());
+            $shop->repository()->update($request->safe()->toArray());
+            return ApiResponseData::success(message: "Shop updated successfully!", data: ShopData::fromModel($shop));
 
+        } catch (Exception $exception) {
+            $this->handleErrorException($exception);
             return ApiResponseData::error();
         }
     }
@@ -85,18 +79,15 @@ class ShopController extends Controller
     public function delete(Shop $shop): JsonResponse
     {
         try {
-            if (Gate::allows("delete", $shop)) {
-                $shop->repository()->delete();
-
-                return ApiResponseData::success(message: "Shop deleted!");
+            if (!Gate::allows("delete", $shop)) {
+                return ApiResponseData::unauthorized();
             }
 
-            return ApiResponseData::unauthorized();
-        } catch (\Exception $exception) {
-            Log::error($exception->getMessage());
-            Log::error($exception->getLine());
-            Log::error($exception->getTraceAsString());
+            $shop->repository()->delete();
+            return ApiResponseData::success(message: "Shop deleted!");
 
+        } catch (Exception $exception) {
+            $this->handleErrorException($exception);
             return ApiResponseData::error();
         }
     }
