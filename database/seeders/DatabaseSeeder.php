@@ -12,6 +12,5 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::select(file_get_contents(base_path("agroapps_database.sql")));
     }
 }
