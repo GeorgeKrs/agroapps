@@ -1,6 +1,5 @@
 ## About this app
-
-This is a back end API developed with laravel framework for AgroApps assignment (Mid Level).
+This is a back end API developed with PHP (8.2) Laravel (11.3) framework for AgroApps assignment (Mid-Level).
 
 ## Steps to run the project
 1) Git clone the project
