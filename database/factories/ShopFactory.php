@@ -2,8 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\ShopCategory;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
@@ -14,9 +12,7 @@ class ShopFactory extends Factory
         return [
             "name" => fake()->name,
             "description" => fake()->sentence(2),
-            "owner_id" => User::factory()->create(),
-            "category_id" => ShopCategory::factory()->create(),
-            "open_hours" => json_encode([
+            "open_hours" => [
                 "Monday" => $this->getWorkingHoursOfDay(order: 1),
                 "Tuesday" => $this->getWorkingHoursOfDay(order: 2),
                 "Wednesday" => $this->getWorkingHoursOfDay(order: 3),
@@ -24,7 +20,7 @@ class ShopFactory extends Factory
                 "Friday" => $this->getWorkingHoursOfDay(order: 5),
                 "Saturday" => $this->getWorkingHoursOfDay(order: 6, openingHour: 10),
                 "Sunday" => $this->getWorkingHoursOfDay(order: 7, isClosed: true),
-            ]),
+            ],
             "city" => fake()->city,
             "address" => fake()->address,
         ];

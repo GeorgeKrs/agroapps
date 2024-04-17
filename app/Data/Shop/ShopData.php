@@ -30,6 +30,7 @@ class ShopData extends Data
 
     public static function fromModel(Shop $shop): static
     {
+
         return new self(
             id: $shop->id,
             name: $shop->name,

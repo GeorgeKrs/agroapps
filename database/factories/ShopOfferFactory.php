@@ -12,7 +12,6 @@ class ShopOfferFactory extends Factory
         return [
             "name" => fake()->name,
             "description" => fake()->sentence(2),
-            "shop_id" => Shop::factory()->create(),
         ];
     }
 }

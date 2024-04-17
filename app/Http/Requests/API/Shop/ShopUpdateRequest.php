@@ -15,7 +15,6 @@ class ShopUpdateRequest extends FormRequest
         return [
             "name" => 'nullable|string|max:60',
             "description" => 'nullable|string|max:500',
-            "owner_id" => 'nullable|exists:' . User::class . ',id',
             "category_id" => 'nullable|exists:' . ShopCategory::class . ',id',
             "city" => 'nullable|string|max:60',
             "address" => 'nullable|string|max:60',
