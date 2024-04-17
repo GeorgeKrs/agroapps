@@ -47,7 +47,7 @@ class ShopController extends Controller
                 return ApiResponseData::unauthorized();
             }
 
-            $shop = ShopRepository::store($request->safe()->toArray());
+            $shop = ShopRepository::store($request->getPreparedPayload());
 
             return ApiResponseData::success(
                 message: "Shop created successfully!",
@@ -67,7 +67,7 @@ class ShopController extends Controller
                 return ApiResponseData::unauthorized();
             }
 
-            $shop->repository()->update($request->safe()->toArray());
+            $shop->repository()->update($request->getPreparedPayload());
             return ApiResponseData::success(message: "Shop updated successfully!", data: ShopData::fromModel($shop));
 
         } catch (Exception $exception) {

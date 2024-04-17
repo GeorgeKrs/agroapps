@@ -3,6 +3,7 @@
 namespace App\Http\Requests\API\Shop;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 abstract class BaseShopRequest extends FormRequest
 {
@@ -17,8 +18,6 @@ abstract class BaseShopRequest extends FormRequest
             "description.required" => "Description is required",
             "description.string" => "Description must be of type string",
             "description.max" => "Description's max characters are 500",
-            "owner_id.required" => "Owner id is required",
-            "owner_id.exists" => "The owner id provided does not exist",
             "category_id.required" => "The category id is required",
             "category_id.exists" => "The category id provided does not exist",
             "city.required" => "City is required",
@@ -38,4 +37,13 @@ abstract class BaseShopRequest extends FormRequest
             "open_hours.*.order.max" => "Order should be at most 7",
         ];
     }
+
+    public function getPreparedPayload(): array
+    {
+        $payload = $this->safe()->toArray();
+        $payload["owner_id"] = Auth::user()->id;
+
+        return $payload;
+    }
+
 }

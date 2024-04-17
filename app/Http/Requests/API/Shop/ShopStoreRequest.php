@@ -3,7 +3,6 @@
 namespace App\Http\Requests\API\Shop;
 
 use App\Models\ShopCategory;
-use App\Models\User;
 use App\Rules\AllDaysOfWeekExistsRule;
 use App\Rules\UniqueOrderValuesRule;
 
@@ -14,7 +13,6 @@ class ShopStoreRequest extends BaseShopRequest
         return [
             "name" => 'required|string|max:60',
             "description" => 'required|string|max:500',
-            "owner_id" => 'required|exists:' . User::class . ',id',
             "category_id" => 'required|exists:' . ShopCategory::class . ',id',
             "city" => 'required|string|max:60',
             "address" => 'nullable|string|max:60',

@@ -8,7 +8,7 @@ use App\Rules\AllDaysOfWeekExistsRule;
 use App\Rules\UniqueOrderValuesRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShopUpdateRequest extends FormRequest
+class ShopUpdateRequest extends BaseShopRequest
 {
     public function rules(): array
     {
