@@ -10,6 +10,8 @@ This is a back end API service developed with PHP (8.2) Laravel (11.3) framework
 I have created model factories both for development and testing purposes.
 If you need more data you can run multiple times the command **php artisan app:development-data**
 
+P.S. All users have as password the word: password
+
 ### Postman APIs
 Moreover, you will find a postman directory (on root project directory) that contains the endpoints both for
 testing & development. 
