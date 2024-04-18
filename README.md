@@ -1,5 +1,5 @@
 ### About this app
-This is a back end API service developed for AgroApp's assignment (Mid-Level).
+This is a back end API service developed for an assignment (Mid-Level).
 
 Tech stack is listed below:
 1) PHP (8.2)
