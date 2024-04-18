@@ -10,7 +10,12 @@ Tech stack is listed below:
 The development was made in Ubuntu 22.04
 
 ### Steps to run the project
-If you are running Linux OS or Mac OS you will need to install composer and mysql.
+If you are running Linux OS or Mac OS you will need to install composer and mysql and then just follow the following steps.
+1) Import database from dumb sql file
+2) Run composer install
+3) Run php artisan serve
+4) Run php artisan queue:work
+ 
 If you are using windows I have made a small guideline in order to install only the Laragon Software.
 It has more steps, but you can remove it after inspecting the project with all its dependencies.
 
