@@ -1,5 +1,12 @@
 ### About this app
-This is a back end API service developed with PHP (8.2) Laravel (11.3) framework for AgroApp's assignment (Mid-Level).
+This is a back end API service developed for AgroApp's assignment (Mid-Level).
+
+Tech stack is listed below:
+1) PHP (8.2)
+2) Laravel (11.3)
+3) MySQL (8.0.36 - 0ubuntu0.22.04.1 for Linux on x86_64 - Ubuntu)
+
+PHP (8.2) Laravel (11.3) framework for AgroApp's assignment (Mid-Level).
 
 ### Steps to run the project
 1) Git clone the project
