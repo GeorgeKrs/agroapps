@@ -5,13 +5,15 @@ Tech stack is listed below:
 1) PHP (8.2)
 2) Laravel (11.3)
 3) MySQL (8.0.36 - 0ubuntu0.22.04.1 for Linux on x86_64 - Ubuntu)
+4) Nginx 1.18.0 Ubuntu
 
 PHP (8.2) Laravel (11.3) framework for AgroApp's assignment (Mid-Level).
 
 ### Steps to run the project
 1) Git clone the project
-2) Open a terminal and run **php artisan serve** in order for the server to start.
-3) Open a second terminal and run **php artisan queue:work** in order for the queue to start.
+2) Create an .env file and then copy the structure from .env.example 
+3) Open a terminal and run **php artisan serve** in order for the server to start. 4
+4) Open a second terminal and run **php artisan queue:work** in order for the queue to start.
 
 ### Development & Testing Data
 I have created model factories both for development and testing purposes.
